@@ -28,11 +28,11 @@ export const Route = createFileRoute("/measurements")({
   component: MeasurementsPage,
 });
 
-interface Record {
+interface MRecord {
   date: string; type: string; height: number; weight: number; bmi: number; status: string;
 }
 
-const seedHistory: Record<string, Record[]> = {
+const seedHistory: Record<string, MRecord[]> = {
   "S-1001": [
     { date: "2025-01-12", type: "Baseline", height: 110, weight: 16.0, bmi: 13.22, status: "Underweight" },
     { date: "2025-04-20", type: "Endline", height: 113, weight: 18.6, bmi: 14.57, status: "Normal" },
@@ -77,7 +77,7 @@ function MeasurementsPage() {
     if (existing.some((r) => r.type === type)) {
       toast.warning(`A ${type} record already exists for this student. Saving will create a duplicate.`);
     }
-    const rec: Record = { date, type, height: h, weight: w, bmi, status: status! };
+    const rec: MRecord = { date, type, height: h, weight: w, bmi, status: status! };
     setHistory({ ...history, [studentId]: [rec, ...existing] });
     toast.success("Measurement record saved successfully");
     reset();
@@ -194,7 +194,7 @@ function MeasurementsPage() {
 
             <div className="sticky bottom-0 -mx-6 flex flex-wrap gap-2 border-t border-border bg-card/95 px-6 py-3 backdrop-blur">
               <Button onClick={save} disabled={!formComplete} className="gap-2">
-                <Save className="h-4 w-4" /> Save Record
+                <Save className="h-4 w-4" /> Save MRecord
               </Button>
               <Button variant="outline" onClick={reset} className="gap-2">
                 <RotateCcw className="h-4 w-4" /> Clear Form
