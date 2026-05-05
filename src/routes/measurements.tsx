@@ -194,7 +194,7 @@ function MeasurementsPage() {
 
             <div className="sticky bottom-0 -mx-6 flex flex-wrap gap-2 border-t border-border bg-card/95 px-6 py-3 backdrop-blur">
               <Button onClick={save} disabled={!formComplete} className="gap-2">
-                <Save className="h-4 w-4" /> Save MRecord
+                <Save className="h-4 w-4" /> Save Record
               </Button>
               <Button variant="outline" onClick={reset} className="gap-2">
                 <RotateCcw className="h-4 w-4" /> Clear Form
