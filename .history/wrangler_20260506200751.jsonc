@@ -7,7 +7,6 @@
   "main": "server/index.ts",
 
   "assets": {
-    "directory": "dist/client"
-  }
+    "directory": "dist/client",
+  },
 }
-
