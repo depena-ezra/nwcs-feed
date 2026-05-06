@@ -9,16 +9,31 @@ import { Switch } from "@/components/ui/switch";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, User as UserIcon, Database, Shield, Save, Download, Upload } from "lucide-react";
+import {
+  Building2,
+  User as UserIcon,
+  Database,
+  Shield,
+  Save,
+  Download,
+  Upload,
+} from "lucide-react";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
       { title: "Settings — FEED System" },
-      { name: "description", content: "Configure school information, preferences, backup, and security." },
+      {
+        name: "description",
+        content: "Configure school information, preferences, backup, and security.",
+      },
     ],
   }),
   component: SettingsPage,
@@ -31,15 +46,25 @@ function SettingsPage() {
 
       <Tabs defaultValue="school" className="w-full">
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
-          <TabsTrigger value="school" className="gap-2"><Building2 className="h-4 w-4" /> School</TabsTrigger>
-          <TabsTrigger value="prefs" className="gap-2"><UserIcon className="h-4 w-4" /> Preferences</TabsTrigger>
-          <TabsTrigger value="backup" className="gap-2"><Database className="h-4 w-4" /> Backup</TabsTrigger>
-          <TabsTrigger value="security" className="gap-2"><Shield className="h-4 w-4" /> Security</TabsTrigger>
+          <TabsTrigger value="school" className="gap-2">
+            <Building2 className="h-4 w-4" /> School
+          </TabsTrigger>
+          <TabsTrigger value="prefs" className="gap-2">
+            <UserIcon className="h-4 w-4" /> Preferences
+          </TabsTrigger>
+          <TabsTrigger value="backup" className="gap-2">
+            <Database className="h-4 w-4" /> Backup
+          </TabsTrigger>
+          <TabsTrigger value="security" className="gap-2">
+            <Shield className="h-4 w-4" /> Security
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="school" className="mt-4">
           <Card>
-            <CardHeader><CardTitle className="text-base">School Information</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">School Information</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <Field label="School Name" defaultValue="San Isidro Elementary School" />
@@ -54,10 +79,20 @@ function SettingsPage() {
 
         <TabsContent value="prefs" className="mt-4">
           <Card>
-            <CardHeader><CardTitle className="text-base">User Preferences</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">User Preferences</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
-              <ToggleRow label="Email Notifications" desc="Receive email updates for finalized reports" defaultOn />
-              <ToggleRow label="Daily Summary" desc="Get a daily attendance recap at 5:00 PM" defaultOn />
+              <ToggleRow
+                label="Email Notifications"
+                desc="Receive email updates for finalized reports"
+                defaultOn
+              />
+              <ToggleRow
+                label="Daily Summary"
+                desc="Get a daily attendance recap at 5:00 PM"
+                defaultOn
+              />
               <ToggleRow label="Compact Tables" desc="Show more rows per page" />
               <SaveBar />
             </CardContent>
@@ -66,30 +101,50 @@ function SettingsPage() {
 
         <TabsContent value="backup" className="mt-4">
           <Card>
-            <CardHeader><CardTitle className="text-base">Backup & Restore</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Backup & Restore</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg border border-border bg-muted/40 p-4">
                 <div className="text-sm font-medium">Last backup</div>
-                <div className="text-xs text-muted-foreground">May 4, 2026 — 11:32 PM (automatic)</div>
+                <div className="text-xs text-muted-foreground">
+                  May 4, 2026 — 11:32 PM (automatic)
+                </div>
               </div>
               <div className="flex flex-wrap gap-2">
-                <Button onClick={() => toast.success("Backup created")} className="gap-2"><Download className="h-4 w-4" /> Create Backup</Button>
-                <Button variant="outline" onClick={() => toast.success("Restore initiated")} className="gap-2"><Upload className="h-4 w-4" /> Restore from File</Button>
+                <Button onClick={() => toast.success("Backup created")} className="gap-2">
+                  <Download className="h-4 w-4" /> Create Backup
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => toast.success("Restore initiated")}
+                  className="gap-2"
+                >
+                  <Upload className="h-4 w-4" /> Restore from File
+                </Button>
               </div>
-              <ToggleRow label="Automatic nightly backup" desc="Run backup every day at 11:00 PM" defaultOn />
+              <ToggleRow
+                label="Automatic nightly backup"
+                desc="Run backup every day at 11:00 PM"
+                defaultOn
+              />
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="security" className="mt-4">
           <Card>
-            <CardHeader><CardTitle className="text-base">Security Settings</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Security Settings</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label>Session Timeout</Label>
                   <Select defaultValue="30">
-                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="15">15 minutes</SelectItem>
                       <SelectItem value="30">30 minutes</SelectItem>
@@ -101,7 +156,9 @@ function SettingsPage() {
                 <div className="space-y-1.5">
                   <Label>Minimum Password Length</Label>
                   <Select defaultValue="8">
-                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="6">6 characters</SelectItem>
                       <SelectItem value="8">8 characters</SelectItem>
@@ -110,9 +167,20 @@ function SettingsPage() {
                   </Select>
                 </div>
               </div>
-              <ToggleRow label="Require strong passwords" desc="Enforce uppercase, number, and symbol" defaultOn />
-              <ToggleRow label="Lock account after 5 failed attempts" desc="Helps prevent brute force attacks" defaultOn />
-              <ToggleRow label="Force password change every 90 days" desc="Periodic password rotation" />
+              <ToggleRow
+                label="Require strong passwords"
+                desc="Enforce uppercase, number, and symbol"
+                defaultOn
+              />
+              <ToggleRow
+                label="Lock account after 5 failed attempts"
+                desc="Helps prevent brute force attacks"
+                defaultOn
+              />
+              <ToggleRow
+                label="Force password change every 90 days"
+                desc="Periodic password rotation"
+              />
               <SaveBar />
             </CardContent>
           </Card>
@@ -130,7 +198,15 @@ function Field({ label, defaultValue }: { label: string; defaultValue: string })
     </div>
   );
 }
-function ToggleRow({ label, desc, defaultOn }: { label: string; desc: string; defaultOn?: boolean }) {
+function ToggleRow({
+  label,
+  desc,
+  defaultOn,
+}: {
+  label: string;
+  desc: string;
+  defaultOn?: boolean;
+}) {
   const [on, setOn] = useState(!!defaultOn);
   return (
     <div className="flex items-center justify-between rounded-lg border border-border p-3">
@@ -145,7 +221,9 @@ function ToggleRow({ label, desc, defaultOn }: { label: string; desc: string; de
 function SaveBar() {
   return (
     <div className="flex justify-end pt-2">
-      <Button onClick={() => toast.success("Settings saved")} className="gap-2"><Save className="h-4 w-4" /> Save Changes</Button>
+      <Button onClick={() => toast.success("Settings saved")} className="gap-2">
+        <Save className="h-4 w-4" /> Save Changes
+      </Button>
     </div>
   );
 }

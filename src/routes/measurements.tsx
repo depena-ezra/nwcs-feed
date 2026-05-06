@@ -9,10 +9,19 @@ import { Badge } from "@/components/ui/badge";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2, Calculator, Save, RotateCcw } from "lucide-react";
@@ -22,20 +31,43 @@ export const Route = createFileRoute("/measurements")({
   head: () => ({
     meta: [
       { title: "Measurements — FEED System" },
-      { name: "description", content: "Encode baseline and endline measurements with auto-computed BMI and nutritional status." },
+      {
+        name: "description",
+        content:
+          "Encode baseline and endline measurements with auto-computed BMI and nutritional status.",
+      },
     ],
   }),
   component: MeasurementsPage,
 });
 
 interface MRecord {
-  date: string; type: string; height: number; weight: number; bmi: number; status: string;
+  date: string;
+  type: string;
+  height: number;
+  weight: number;
+  bmi: number;
+  status: string;
 }
 
 const seedHistory: Record<string, MRecord[]> = {
   "S-1001": [
-    { date: "2025-01-12", type: "Baseline", height: 110, weight: 16.0, bmi: 13.22, status: "Underweight" },
-    { date: "2025-04-20", type: "Endline", height: 113, weight: 18.6, bmi: 14.57, status: "Normal" },
+    {
+      date: "2025-01-12",
+      type: "Baseline",
+      height: 110,
+      weight: 16.0,
+      bmi: 13.22,
+      status: "Underweight",
+    },
+    {
+      date: "2025-04-20",
+      type: "Endline",
+      height: 113,
+      weight: 18.6,
+      bmi: 14.57,
+      status: "Normal",
+    },
   ],
 };
 
@@ -66,7 +98,11 @@ function MeasurementsPage() {
     return Object.keys(e).length === 0;
   };
 
-  const reset = () => { setHeight(""); setWeight(""); setErrors({}); };
+  const reset = () => {
+    setHeight("");
+    setWeight("");
+    setErrors({});
+  };
 
   const save = () => {
     if (!validate()) {
@@ -75,7 +111,9 @@ function MeasurementsPage() {
     }
     const existing = history[studentId] ?? [];
     if (existing.some((r) => r.type === type)) {
-      toast.warning(`A ${type} record already exists for this student. Saving will create a duplicate.`);
+      toast.warning(
+        `A ${type} record already exists for this student. Saving will create a duplicate.`,
+      );
     }
     const rec: MRecord = { date, type, height: h, weight: w, bmi, status: status! };
     setHistory({ ...history, [studentId]: [rec, ...existing] });
@@ -84,7 +122,7 @@ function MeasurementsPage() {
   };
 
   const formComplete = studentId && height && weight && date;
-  const studentHistory = studentId ? history[studentId] ?? [] : [];
+  const studentHistory = studentId ? (history[studentId] ?? []) : [];
 
   return (
     <AppLayout title="Measurements" subtitle="Encode baseline and endline measurements">
@@ -98,23 +136,31 @@ function MeasurementsPage() {
           <CardContent className="space-y-5">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
-                <Label>Student <span className="text-destructive">*</span></Label>
+                <Label>
+                  Student <span className="text-destructive">*</span>
+                </Label>
                 <Select value={studentId} onValueChange={setStudentId}>
                   <SelectTrigger className={errors.student ? "border-destructive" : ""}>
                     <SelectValue placeholder="Search and select student..." />
                   </SelectTrigger>
                   <SelectContent>
                     {students.map((s) => (
-                      <SelectItem key={s.id} value={s.id}>{s.name} — {s.grade} {s.section}</SelectItem>
+                      <SelectItem key={s.id} value={s.id}>
+                        {s.name} — {s.grade} {s.section}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
                 {errors.student && <p className="text-xs text-destructive">{errors.student}</p>}
               </div>
               <div className="space-y-1.5">
-                <Label>Measurement Type <span className="text-destructive">*</span></Label>
+                <Label>
+                  Measurement Type <span className="text-destructive">*</span>
+                </Label>
                 <Select value={type} onValueChange={(v) => setType(v as "Baseline" | "Endline")}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Baseline">Baseline</SelectItem>
                     <SelectItem value="Endline">Endline</SelectItem>
@@ -133,20 +179,43 @@ function MeasurementsPage() {
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="space-y-1.5">
-                <Label>Height (cm) <span className="text-destructive">*</span></Label>
-                <Input type="number" inputMode="decimal" value={height} onChange={(e) => setHeight(e.target.value)}
-                  className={errors.height ? "border-destructive" : ""} placeholder="e.g. 110" />
+                <Label>
+                  Height (cm) <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  type="number"
+                  inputMode="decimal"
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
+                  className={errors.height ? "border-destructive" : ""}
+                  placeholder="e.g. 110"
+                />
                 {errors.height && <p className="text-xs text-destructive">{errors.height}</p>}
               </div>
               <div className="space-y-1.5">
-                <Label>Weight (kg) <span className="text-destructive">*</span></Label>
-                <Input type="number" inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)}
-                  className={errors.weight ? "border-destructive" : ""} placeholder="e.g. 18.5" />
+                <Label>
+                  Weight (kg) <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  type="number"
+                  inputMode="decimal"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                  className={errors.weight ? "border-destructive" : ""}
+                  placeholder="e.g. 18.5"
+                />
                 {errors.weight && <p className="text-xs text-destructive">{errors.weight}</p>}
               </div>
               <div className="space-y-1.5">
-                <Label>Date Recorded <span className="text-destructive">*</span></Label>
-                <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={errors.date ? "border-destructive" : ""} />
+                <Label>
+                  Date Recorded <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className={errors.date ? "border-destructive" : ""}
+                />
               </div>
             </div>
 
@@ -168,27 +237,39 @@ function MeasurementsPage() {
                   <div className="text-[11px] text-muted-foreground">Nutritional Status</div>
                   <div>
                     {status ? (
-                      <Badge className={`mt-1 border ${statusColor[status]} hover:opacity-100`}>{status}</Badge>
-                    ) : <span className="text-sm text-muted-foreground">—</span>}
+                      <Badge className={`mt-1 border ${statusColor[status]} hover:opacity-100`}>
+                        {status}
+                      </Badge>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">—</span>
+                    )}
                   </div>
                 </div>
                 <div>
                   <div className="text-[11px] text-muted-foreground">Interpretation</div>
                   <div className="text-xs text-foreground">
-                    {status === "Normal" ? "Within healthy range." :
-                      status === "Underweight" ? "Requires immediate intervention." :
-                      status === "At Risk" ? "Monitor closely; nutritional support recommended." :
-                      status === "Overweight" ? "Dietary counseling recommended." : "Enter measurements to see result."}
+                    {status === "Normal"
+                      ? "Within healthy range."
+                      : status === "Underweight"
+                        ? "Requires immediate intervention."
+                        : status === "At Risk"
+                          ? "Monitor closely; nutritional support recommended."
+                          : status === "Overweight"
+                            ? "Dietary counseling recommended."
+                            : "Enter measurements to see result."}
                   </div>
                 </div>
               </div>
             </div>
 
-            {(h > 0 && (h < 60 || h > 200)) && (
+            {h > 0 && (h < 60 || h > 200) && (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Unusual height value</AlertTitle>
-                <AlertDescription>The height seems outside the typical range for elementary students. Please double-check.</AlertDescription>
+                <AlertDescription>
+                  The height seems outside the typical range for elementary students. Please
+                  double-check.
+                </AlertDescription>
               </Alert>
             )}
 
@@ -208,16 +289,28 @@ function MeasurementsPage() {
             <CardTitle className="text-base">Tips</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <Tip icon={<CheckCircle2 className="h-4 w-4 text-success" />} text="Select a student before encoding height and weight." />
-            <Tip icon={<CheckCircle2 className="h-4 w-4 text-success" />} text="BMI and status are auto-computed as you type." />
-            <Tip icon={<AlertCircle className="h-4 w-4 text-warning-foreground" />} text="Review the result before saving — duplicate entries will warn you." />
+            <Tip
+              icon={<CheckCircle2 className="h-4 w-4 text-success" />}
+              text="Select a student before encoding height and weight."
+            />
+            <Tip
+              icon={<CheckCircle2 className="h-4 w-4 text-success" />}
+              text="BMI and status are auto-computed as you type."
+            />
+            <Tip
+              icon={<AlertCircle className="h-4 w-4 text-warning-foreground" />}
+              text="Review the result before saving — duplicate entries will warn you."
+            />
           </CardContent>
         </Card>
       </div>
 
       <Card className="mt-4">
         <CardHeader>
-          <CardTitle className="text-base">Measurement History {student && <span className="text-muted-foreground font-normal">— {student.name}</span>}</CardTitle>
+          <CardTitle className="text-base">
+            Measurement History{" "}
+            {student && <span className="text-muted-foreground font-normal">— {student.name}</span>}
+          </CardTitle>
         </CardHeader>
         <CardContent className="overflow-x-auto p-0">
           <Table>
@@ -234,22 +327,33 @@ function MeasurementsPage() {
             <TableBody>
               {studentHistory.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="py-10 text-center text-sm text-muted-foreground">
-                    {studentId ? "No previous measurements for this student." : "Select a student to view their measurement history."}
+                  <TableCell
+                    colSpan={6}
+                    className="py-10 text-center text-sm text-muted-foreground"
+                  >
+                    {studentId
+                      ? "No previous measurements for this student."
+                      : "Select a student to view their measurement history."}
                   </TableCell>
                 </TableRow>
-              ) : studentHistory.map((r, i) => (
-                <TableRow key={i}>
-                  <TableCell>{r.date}</TableCell>
-                  <TableCell>{r.type}</TableCell>
-                  <TableCell>{r.height}</TableCell>
-                  <TableCell>{r.weight}</TableCell>
-                  <TableCell className="font-semibold">{r.bmi}</TableCell>
-                  <TableCell>
-                    <Badge className={`border ${statusColor[r.status as keyof typeof statusColor]}`}>{r.status}</Badge>
-                  </TableCell>
-                </TableRow>
-              ))}
+              ) : (
+                studentHistory.map((r, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{r.date}</TableCell>
+                    <TableCell>{r.type}</TableCell>
+                    <TableCell>{r.height}</TableCell>
+                    <TableCell>{r.weight}</TableCell>
+                    <TableCell className="font-semibold">{r.bmi}</TableCell>
+                    <TableCell>
+                      <Badge
+                        className={`border ${statusColor[r.status as keyof typeof statusColor]}`}
+                      >
+                        {r.status}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </CardContent>
@@ -267,5 +371,10 @@ function Info({ label, value }: { label: string; value: string }) {
   );
 }
 function Tip({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return <div className="flex items-start gap-2"><div className="mt-0.5">{icon}</div><span className="text-xs text-muted-foreground">{text}</span></div>;
+  return (
+    <div className="flex items-start gap-2">
+      <div className="mt-0.5">{icon}</div>
+      <span className="text-xs text-muted-foreground">{text}</span>
+    </div>
+  );
 }

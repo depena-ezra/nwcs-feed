@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
-import { Bell, ChevronDown, LogOut, User as UserIcon, Settings as SettingsIcon } from "lucide-react";
+import {
+  Bell,
+  ChevronDown,
+  LogOut,
+  User as UserIcon,
+  Settings as SettingsIcon,
+} from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
@@ -45,10 +51,10 @@ export function AppLayout({ title, subtitle, actions, children }: AppLayoutProps
           <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-card/80 px-4 backdrop-blur-sm">
             <SidebarTrigger />
             <div className="flex-1 min-w-0">
-              <h1 className="truncate text-base font-semibold text-foreground sm:text-lg">{title}</h1>
-              {subtitle && (
-                <p className="truncate text-xs text-muted-foreground">{subtitle}</p>
-              )}
+              <h1 className="truncate text-base font-semibold text-foreground sm:text-lg">
+                {title}
+              </h1>
+              {subtitle && <p className="truncate text-xs text-muted-foreground">{subtitle}</p>}
             </div>
 
             <Button variant="ghost" size="icon" className="relative">
@@ -65,9 +71,14 @@ export function AppLayout({ title, subtitle, actions, children }: AppLayoutProps
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden text-left sm:block">
-                    <div className="text-sm font-medium text-foreground leading-tight">Maria Reyes</div>
+                    <div className="text-sm font-medium text-foreground leading-tight">
+                      Maria Reyes
+                    </div>
                     <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                      <Badge variant="outline" className="h-4 px-1 text-[9px] border-primary/30 text-primary">
+                      <Badge
+                        variant="outline"
+                        className="h-4 px-1 text-[9px] border-primary/30 text-primary"
+                      >
                         Coordinator
                       </Badge>
                     </div>
@@ -87,7 +98,10 @@ export function AppLayout({ title, subtitle, actions, children }: AppLayoutProps
                 <DropdownMenuSeparator />
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                    <DropdownMenuItem
+                      onSelect={(e) => e.preventDefault()}
+                      className="text-destructive"
+                    >
                       <LogOut className="mr-2 h-4 w-4" /> Logout
                     </DropdownMenuItem>
                   </AlertDialogTrigger>
@@ -95,7 +109,8 @@ export function AppLayout({ title, subtitle, actions, children }: AppLayoutProps
                     <AlertDialogHeader>
                       <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Are you sure you want to log out? You will need to sign in again to access the system.
+                        Are you sure you want to log out? You will need to sign in again to access
+                        the system.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

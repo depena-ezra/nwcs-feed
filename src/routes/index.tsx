@@ -33,7 +33,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Dashboard — FEED System" },
-      { name: "description", content: "Overview of the school feeding program: beneficiaries, nutritional status, and attendance." },
+      {
+        name: "description",
+        content:
+          "Overview of the school feeding program: beneficiaries, nutritional status, and attendance.",
+      },
     ],
   }),
   component: Dashboard,
@@ -42,10 +46,25 @@ export const Route = createFileRoute("/")({
 const stats = [
   { label: "Total Beneficiaries", value: "248", icon: Heart, tone: "bg-primary/10 text-primary" },
   { label: "Students Encoded", value: "312", icon: Users, tone: "bg-info/10 text-info" },
-  { label: "Underweight", value: "42", icon: TrendingDown, tone: "bg-destructive/10 text-destructive" },
+  {
+    label: "Underweight",
+    value: "42",
+    icon: TrendingDown,
+    tone: "bg-destructive/10 text-destructive",
+  },
   { label: "Normal", value: "195", icon: ClipboardCheck, tone: "bg-success/10 text-success" },
-  { label: "Overweight", value: "11", icon: TrendingUp, tone: "bg-warning/20 text-warning-foreground" },
-  { label: "Attendance Rate", value: "94%", icon: CalendarCheck, tone: "bg-primary/10 text-primary" },
+  {
+    label: "Overweight",
+    value: "11",
+    icon: TrendingUp,
+    tone: "bg-warning/20 text-warning-foreground",
+  },
+  {
+    label: "Attendance Rate",
+    value: "94%",
+    icon: CalendarCheck,
+    tone: "bg-primary/10 text-primary",
+  },
 ];
 
 const pieData = [
@@ -65,10 +84,30 @@ const compareData = [
 ];
 
 const recent = [
-  { who: "Andrea Cruz", what: "Endline measurement encoded", when: "2 min ago", tone: "text-success" },
-  { who: "Grade 2 — Rosal", what: "Daily feeding attendance saved", when: "18 min ago", tone: "text-primary" },
-  { who: "Benjie Santos", what: "Marked At Risk after baseline", when: "1 hr ago", tone: "text-warning-foreground" },
-  { who: "Hector Villanueva", what: "Profile updated by M. Reyes", when: "Yesterday", tone: "text-muted-foreground" },
+  {
+    who: "Andrea Cruz",
+    what: "Endline measurement encoded",
+    when: "2 min ago",
+    tone: "text-success",
+  },
+  {
+    who: "Grade 2 — Rosal",
+    what: "Daily feeding attendance saved",
+    when: "18 min ago",
+    tone: "text-primary",
+  },
+  {
+    who: "Benjie Santos",
+    what: "Marked At Risk after baseline",
+    when: "1 hr ago",
+    tone: "text-warning-foreground",
+  },
+  {
+    who: "Hector Villanueva",
+    what: "Profile updated by M. Reyes",
+    when: "Yesterday",
+    tone: "text-muted-foreground",
+  },
 ];
 
 function Dashboard() {
@@ -80,7 +119,9 @@ function Dashboard() {
         {stats.map((s) => (
           <Card key={s.label} className="shadow-[var(--shadow-card)]">
             <CardContent className="flex items-center gap-3 p-4">
-              <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${s.tone}`}>
+              <div
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${s.tone}`}
+              >
                 <s.icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">
@@ -100,13 +141,26 @@ function Dashboard() {
           <CardContent className="h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={pieData} dataKey="value" cx="50%" cy="50%" outerRadius={85} innerRadius={50} paddingAngle={2}>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={85}
+                  innerRadius={50}
+                  paddingAngle={2}
+                >
                   {pieData.map((d) => (
                     <Cell key={d.name} fill={d.color} />
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }}
+                  contentStyle={{
+                    backgroundColor: "var(--card)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 8,
+                    fontSize: 12,
+                  }}
                 />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
@@ -125,10 +179,20 @@ function Dashboard() {
                 <XAxis dataKey="grade" stroke="var(--muted-foreground)" fontSize={12} />
                 <YAxis stroke="var(--muted-foreground)" fontSize={12} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }}
+                  contentStyle={{
+                    backgroundColor: "var(--card)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 8,
+                    fontSize: 12,
+                  }}
                 />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar dataKey="baseline" fill="var(--destructive)" name="Baseline" radius={[4, 4, 0, 0]} />
+                <Bar
+                  dataKey="baseline"
+                  fill="var(--destructive)"
+                  name="Baseline"
+                  radius={[4, 4, 0, 0]}
+                />
                 <Bar dataKey="endline" fill="var(--success)" name="Endline" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -169,8 +233,13 @@ function Dashboard() {
           </CardHeader>
           <CardContent className="space-y-3">
             {recent.map((r, i) => (
-              <div key={i} className="flex items-start gap-3 border-b border-border pb-3 last:border-0 last:pb-0">
-                <div className={`mt-1 h-2 w-2 shrink-0 rounded-full ${r.tone.replace("text-", "bg-")}`} />
+              <div
+                key={i}
+                className="flex items-start gap-3 border-b border-border pb-3 last:border-0 last:pb-0"
+              >
+                <div
+                  className={`mt-1 h-2 w-2 shrink-0 rounded-full ${r.tone.replace("text-", "bg-")}`}
+                />
                 <div className="min-w-0 flex-1">
                   <div className="text-sm font-medium text-foreground">{r.who}</div>
                   <div className="text-xs text-muted-foreground">{r.what}</div>

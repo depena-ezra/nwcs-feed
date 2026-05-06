@@ -12,7 +12,10 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Login — FEED System" },
-      { name: "description", content: "Sign in to the FEED Feeding Encoding, Evaluation, and Data Management System." },
+      {
+        name: "description",
+        content: "Sign in to the FEED Feeding Encoding, Evaluation, and Data Management System.",
+      },
     ],
   }),
   component: LoginPage,
@@ -26,7 +29,9 @@ function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [errors, setErrors] = useState<{ username?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
-  const sessionExpired = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("session") === "expired";
+  const sessionExpired =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("session") === "expired";
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
