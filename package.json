@@ -86,7 +86,7 @@
     "wrangler": "^4.88.0"
   },
   "overrides": {
-    "blake3-wasm": "^3.0.0",
-    "@c4312/blake3-internal": "^3.0.0"
+    "blake3-wasm": "^2.1.5",
+    "@c4312/blake3-internal": "^2.1.5"
   }
 }
