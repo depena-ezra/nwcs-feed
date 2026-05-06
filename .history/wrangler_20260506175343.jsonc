@@ -3,11 +3,7 @@
   "name": "nwcs-feed",
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
-
-  "main": "server/index.ts",
-
   "assets": {
     "directory": "dist/client"
   }
 }
-
