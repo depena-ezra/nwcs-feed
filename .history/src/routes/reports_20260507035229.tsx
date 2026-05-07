@@ -209,11 +209,10 @@ function ReportPreview({
     );
   }
 
-  const statusBadge = (status: unknown) => {
-    const key = status as keyof typeof statusColor;
-    const meta = statusColor[key];
+  const statusBadge = (status: string) => {
+    const meta = statusColor[status as keyof typeof statusColor];
     const className = meta?.className ?? "bg-muted text-foreground";
-    const label = meta?.label ?? String(status ?? "");
+    const label = meta?.label ?? status;
     return <Badge className={className}>{label}</Badge>;
   };
 
