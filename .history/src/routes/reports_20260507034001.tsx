@@ -59,7 +59,6 @@ import {
 } from "@/lib/reportsService";
 
 export const Route = createFileRoute("/reports")({
-
   head: () => ({
     meta: [
       { title: "Reports — FEED System" },
@@ -154,12 +153,8 @@ function ReportsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-4">
-              <FiltersPanel
-                selected={selected}
-                onChange={(next) => setFilters(next)}
-              />
+              <FiltersPanel selected={selected} onChange={(next) => setFilters(next)} />
             </div>
-
 
             <div className="flex flex-wrap gap-2">
               <Button onClick={() => toast.success("Preview generated")} className="gap-2">

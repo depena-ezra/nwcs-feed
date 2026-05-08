@@ -59,7 +59,6 @@ import {
 } from "@/lib/reportsService";
 
 export const Route = createFileRoute("/reports")({
-
   head: () => ({
     meta: [
       { title: "Reports — FEED System" },
@@ -123,7 +122,6 @@ function ReportsPage() {
     section: "all",
   });
 
-
   return (
     <AppLayout title="Reports" subtitle="Generate official and consolidated reports">
       <Toaster richColors position="top-right" />
@@ -167,9 +165,7 @@ function ReportsPage() {
                 <Input
                   type="date"
                   value={filters.dateFrom ?? ""}
-                  onChange={(e) =>
-                    setFilters((p) => ({ ...p, dateFrom: e.target.value }))
-                  }
+                  onChange={(e) => setFilters((p) => ({ ...p, dateFrom: e.target.value }))}
                 />
               </div>
               <div className="space-y-1.5">
@@ -184,7 +180,9 @@ function ReportsPage() {
                 <Label>Grade</Label>
                 <Select
                   value={filters.grade ?? "all"}
-                  onValueChange={(v) => setFilters((p) => ({ ...p, grade: v as ReportFilters["grade"] }))}
+                  onValueChange={(v) =>
+                    setFilters((p) => ({ ...p, grade: v as ReportFilters["grade"] }))
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -203,7 +201,9 @@ function ReportsPage() {
                 <Label>Section</Label>
                 <Select
                   value={filters.section ?? "all"}
-                  onValueChange={(v) => setFilters((p) => ({ ...p, section: v as ReportFilters["section"] }))}
+                  onValueChange={(v) =>
+                    setFilters((p) => ({ ...p, section: v as ReportFilters["section"] }))
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -219,7 +219,6 @@ function ReportsPage() {
                 </Select>
               </div>
             </div>
-
 
             <div className="flex flex-wrap gap-2">
               <Button onClick={() => toast.success("Preview generated")} className="gap-2">
@@ -260,7 +259,6 @@ function ReportsPage() {
                 Preview
               </div>
               <ReportPreview selected={selected} filters={filters} />
-
             </div>
           </CardContent>
         </Card>

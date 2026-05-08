@@ -1,4 +1,15 @@
-import { feedingRecords, measurementRecords, sections, students, type Student, type NutritionStatus, type MeasurementRecord, type FeedingRecord, grades, statusColor } from "@/lib/mockData";
+import {
+  feedingRecords,
+  measurementRecords,
+  sections,
+  students,
+  type Student,
+  type NutritionStatus,
+  type MeasurementRecord,
+  type FeedingRecord,
+  grades,
+  statusColor,
+} from "@/lib/mockData";
 
 export type Grade = (typeof grades)[number];
 export type Section = (typeof sections)[number];
@@ -37,7 +48,8 @@ function inDateRange(date: string, { dateFrom, dateTo }: DateRange) {
 
 function studentMatches(student: Student, filters: ReportFilters) {
   const gradeOk = !filters.grade || filters.grade === "all" || student.grade === filters.grade;
-  const sectionOk = !filters.section || filters.section === "all" || student.section === filters.section;
+  const sectionOk =
+    !filters.section || filters.section === "all" || student.section === filters.section;
   return gradeOk && sectionOk;
 }
 
@@ -90,7 +102,11 @@ export interface MeasurementReportRow {
   notes?: string;
 }
 
-function joinMeasurementRow(rec: MeasurementRecord, student: Student, type: "Baseline" | "Endline"): MeasurementReportRow {
+function joinMeasurementRow(
+  rec: MeasurementRecord,
+  student: Student,
+  type: "Baseline" | "Endline",
+): MeasurementReportRow {
   return {
     studentId: student.id,
     studentName: student.name,
@@ -109,10 +125,16 @@ function joinMeasurementRow(rec: MeasurementRecord, student: Student, type: "Bas
   };
 }
 
-function buildMeasurementReport(type: "Baseline" | "Endline", filters: ReportFilters): MeasurementReportRow[] {
+function buildMeasurementReport(
+  type: "Baseline" | "Endline",
+  filters: ReportFilters,
+): MeasurementReportRow[] {
   const eligibleStudents = new Map<string, Student>(filterStudents(filters).map((s) => [s.id, s]));
 
-  const fromTo: DateRange = { dateFrom: toIsoDate(filters.dateFrom), dateTo: toIsoDate(filters.dateTo) };
+  const fromTo: DateRange = {
+    dateFrom: toIsoDate(filters.dateFrom),
+    dateTo: toIsoDate(filters.dateTo),
+  };
 
   return measurementRecords
     .filter((r) => r.type === type)
@@ -159,15 +181,24 @@ export interface AttendanceReport {
 
 export function buildFeedingAttendanceSummary(filters: ReportFilters): AttendanceReport {
   const eligibleStudents = new Map<string, Student>(filterStudents(filters).map((s) => [s.id, s]));
-  const fromTo: DateRange = { dateFrom: toIsoDate(filters.dateFrom), dateTo: toIsoDate(filters.dateTo) };
+  const fromTo: DateRange = {
+    dateFrom: toIsoDate(filters.dateFrom),
+    dateTo: toIsoDate(filters.dateTo),
+  };
 
   const filtered = feedingRecords
     .filter((r) => inDateRange(r.date, fromTo))
     .filter((r) => eligibleStudents.has(r.studentId));
 
   // Collect unique days within range based on feeding records.
-  const dayMap = new Map<string, { present: number; absent: number; received: number; totalExpected: number }>();
-  const studentMap = new Map<string, { present: number; absent: number; received: number; totalExpected: number }>();
+  const dayMap = new Map<
+    string,
+    { present: number; absent: number; received: number; totalExpected: number }
+  >();
+  const studentMap = new Map<
+    string,
+    { present: number; absent: number; received: number; totalExpected: number }
+  >();
 
   // We'll compute totals expected per day as count of eligible students that have ANY record that day,
   // which matches our mock behavior.
@@ -195,14 +226,24 @@ export function buildFeedingAttendanceSummary(filters: ReportFilters): Attendanc
     dayMap.set(date, { present, absent, received, totalExpected });
 
     for (const sid of expectedStudentIds) {
-      const sStats = studentMap.get(sid) ?? { present: 0, absent: 0, received: 0, totalExpected: 0 };
+      const sStats = studentMap.get(sid) ?? {
+        present: 0,
+        absent: 0,
+        received: 0,
+        totalExpected: 0,
+      };
       sStats.totalExpected += 1;
       studentMap.set(sid, sStats);
     }
 
     // Update per-student stats.
     for (const r of recs) {
-      const sStats = studentMap.get(r.studentId) ?? { present: 0, absent: 0, received: 0, totalExpected: 0 };
+      const sStats = studentMap.get(r.studentId) ?? {
+        present: 0,
+        absent: 0,
+        received: 0,
+        totalExpected: 0,
+      };
       if (r.present) sStats.present++;
       if (r.absent) sStats.absent++;
       if (r.receivedMeal) sStats.received++;
@@ -362,14 +403,21 @@ export interface ConsolidatedSchoolFeedingReport {
   };
 }
 
-export function buildConsolidatedSchoolFeedingReport(filters: ReportFilters): ConsolidatedSchoolFeedingReport {
+export function buildConsolidatedSchoolFeedingReport(
+  filters: ReportFilters,
+): ConsolidatedSchoolFeedingReport {
   const eligible = filterStudents(filters);
   const totalBeneficiaries = eligible.filter((s) => s.beneficiary).length;
 
-  const fromTo: DateRange = { dateFrom: toIsoDate(filters.dateFrom), dateTo: toIsoDate(filters.dateTo) };
+  const fromTo: DateRange = {
+    dateFrom: toIsoDate(filters.dateFrom),
+    dateTo: toIsoDate(filters.dateTo),
+  };
   const eligibleIds = new Set<string>(eligible.map((s) => s.id));
 
-  const filtered = feedingRecords.filter((r) => inDateRange(r.date, fromTo)).filter((r) => eligibleIds.has(r.studentId));
+  const filtered = feedingRecords
+    .filter((r) => inDateRange(r.date, fromTo))
+    .filter((r) => eligibleIds.has(r.studentId));
 
   // totals across all records in the range
   let totalPresent = 0;
@@ -413,4 +461,3 @@ export function buildConsolidatedSchoolFeedingReport(filters: ReportFilters): Co
 }
 
 export const _debugStatusColor = statusColor;
-

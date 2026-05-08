@@ -63,9 +63,7 @@ import {
   type StudentMasterlistRow,
 } from "@/lib/reportsService";
 
-
 export const Route = createFileRoute("/reports")({
-
   head: () => ({
     meta: [
       { title: "Reports — FEED System" },
@@ -118,13 +116,7 @@ const reports = [
   },
 ];
 
-function ReportPreview({
-  selected,
-  filters,
-}: {
-  selected: string | null;
-  filters: ReportFilters;
-}) {
+function ReportPreview({ selected, filters }: { selected: string | null; filters: ReportFilters }) {
   const computed = useMemo(() => {
     if (!selected) return null;
 
@@ -165,11 +157,7 @@ function ReportPreview({
   }, [selected, filters]);
 
   if (!computed) {
-    return (
-      <div className="text-sm text-muted-foreground">
-        Select a report type to preview.
-      </div>
-    );
+    return <div className="text-sm text-muted-foreground">Select a report type to preview.</div>;
   }
 
   if (computed.type === "masterlist") {
@@ -244,7 +232,7 @@ function ReportPreview({
           </TableHeader>
           <TableBody>
             {rows.map((r) => (
-              <TableRow key={`${r.type}::${r.studentId}::${r.date}`}> 
+              <TableRow key={`${r.type}::${r.studentId}::${r.date}`}>
                 <TableCell>{r.lrn}</TableCell>
                 <TableCell>{r.studentName}</TableCell>
                 <TableCell>{r.grade}</TableCell>
@@ -357,18 +345,26 @@ function ReportPreview({
             Beneficiaries: <span className="font-medium">{report.totalBeneficiaries}</span>
           </div>
           <div className="rounded-md border bg-card p-2 text-sm">
-            Present Rate: <span className="font-medium">{report.attendance.presentRatePct.toFixed(1)}%</span>
+            Present Rate:{" "}
+            <span className="font-medium">{report.attendance.presentRatePct.toFixed(1)}%</span>
           </div>
           <div className="rounded-md border bg-card p-2 text-sm">
-            Meals Received Rate: <span className="font-medium">{report.attendance.mealsReceivedRatePct.toFixed(1)}%</span>
+            Meals Received Rate:{" "}
+            <span className="font-medium">
+              {report.attendance.mealsReceivedRatePct.toFixed(1)}%
+            </span>
           </div>
         </div>
 
         <div className="mb-4 rounded-md border bg-card p-3">
           <div className="mb-2 text-sm font-medium">Nutritional Improvement</div>
           <div className="text-sm">
-            Improved: <span className="font-medium">{report.nutritionalImprovement.improvedCount}</span> (
-            <span className="font-medium">{report.nutritionalImprovement.improvedRatePct.toFixed(1)}%</span>)
+            Improved:{" "}
+            <span className="font-medium">{report.nutritionalImprovement.improvedCount}</span> (
+            <span className="font-medium">
+              {report.nutritionalImprovement.improvedRatePct.toFixed(1)}%
+            </span>
+            )
           </div>
         </div>
 
@@ -410,7 +406,6 @@ function ReportsPage() {
     grade: "all",
     section: "all",
   });
-
 
   return (
     <AppLayout title="Reports" subtitle="Generate official and consolidated reports">
@@ -455,9 +450,7 @@ function ReportsPage() {
                 <Input
                   type="date"
                   value={filters.dateFrom ?? ""}
-                  onChange={(e) =>
-                    setFilters((p) => ({ ...p, dateFrom: e.target.value }))
-                  }
+                  onChange={(e) => setFilters((p) => ({ ...p, dateFrom: e.target.value }))}
                 />
               </div>
               <div className="space-y-1.5">
@@ -472,7 +465,9 @@ function ReportsPage() {
                 <Label>Grade</Label>
                 <Select
                   value={filters.grade ?? "all"}
-                  onValueChange={(v) => setFilters((p) => ({ ...p, grade: v as ReportFilters["grade"] }))}
+                  onValueChange={(v) =>
+                    setFilters((p) => ({ ...p, grade: v as ReportFilters["grade"] }))
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -491,7 +486,9 @@ function ReportsPage() {
                 <Label>Section</Label>
                 <Select
                   value={filters.section ?? "all"}
-                  onValueChange={(v) => setFilters((p) => ({ ...p, section: v as ReportFilters["section"] }))}
+                  onValueChange={(v) =>
+                    setFilters((p) => ({ ...p, section: v as ReportFilters["section"] }))
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -507,7 +504,6 @@ function ReportsPage() {
                 </Select>
               </div>
             </div>
-
 
             <div className="flex flex-wrap gap-2">
               <Button onClick={() => toast.success("Preview generated")} className="gap-2">
@@ -548,7 +544,6 @@ function ReportsPage() {
                 Preview
               </div>
               <ReportPreview selected={selected} filters={filters} />
-
             </div>
           </CardContent>
         </Card>

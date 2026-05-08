@@ -49,10 +49,7 @@ import { grades, sections, statusColor } from "@/lib/mockData";
 import { useMemo } from "react";
 import { students } from "@/lib/mockData";
 
-
-import {
-} from "@/lib/reportsService";
-
+import {} from "@/lib/reportsService";
 
 export const Route = createFileRoute("/reports")({
   head: () => ({

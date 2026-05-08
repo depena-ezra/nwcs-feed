@@ -233,11 +233,7 @@ function ReportsPage() {
               <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Preview
               </div>
-              <PreviewPanel
-                selected={selected}
-                filters={filters}
-                statusColor={statusColor}
-              />
+              <PreviewPanel selected={selected} filters={filters} statusColor={statusColor} />
             </div>
           </CardContent>
         </Card>

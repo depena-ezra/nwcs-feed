@@ -1,4 +1,15 @@
-import { feedingRecords, measurementRecords, sections, students, type Student, type NutritionStatus, type MeasurementRecord, type FeedingRecord, grades, statusColor } from "@/lib/mockData";
+import {
+  feedingRecords,
+  measurementRecords,
+  sections,
+  students,
+  type Student,
+  type NutritionStatus,
+  type MeasurementRecord,
+  type FeedingRecord,
+  grades,
+  statusColor,
+} from "@/lib/mockData";
 
 export type Grade = (typeof grades)[number];
 export type Section = (typeof sections)[number];
@@ -37,7 +48,8 @@ function inDateRange(date: string, { dateFrom, dateTo }: DateRange) {
 
 function studentMatches(student: Student, filters: ReportFilters) {
   const gradeOk = !filters.grade || filters.grade === "all" || student.grade === filters.grade;
-  const sectionOk = !filters.section || filters.section === "all" || student.section === filters.section;
+  const sectionOk =
+    !filters.section || filters.section === "all" || student.section === filters.section;
   return gradeOk && sectionOk;
 }
 
@@ -90,7 +102,11 @@ export interface MeasurementReportRow {
   notes?: string;
 }
 
-function joinMeasurementRow(rec: MeasurementRecord, student: Student, type: "Baseline" | "Endline"): MeasurementReportRow {
+function joinMeasurementRow(
+  rec: MeasurementRecord,
+  student: Student,
+  type: "Baseline" | "Endline",
+): MeasurementReportRow {
   return {
     studentId: student.id,
     studentName: student.name,
@@ -109,10 +125,16 @@ function joinMeasurementRow(rec: MeasurementRecord, student: Student, type: "Bas
   };
 }
 
-function buildMeasurementReport(type: "Baseline" | "Endline", filters: ReportFilters): MeasurementReportRow[] {
+function buildMeasurementReport(
+  type: "Baseline" | "Endline",
+  filters: ReportFilters,
+): MeasurementReportRow[] {
   const eligibleStudents = new Map<string, Student>(filterStudents(filters).map((s) => [s.id, s]));
 
-  const fromTo: DateRange = { dateFrom: toIsoDate(filters.dateFrom), dateTo: toIsoDate(filters.dateTo) };
+  const fromTo: DateRange = {
+    dateFrom: toIsoDate(filters.dateFrom),
+    dateTo: toIsoDate(filters.dateTo),
+  };
 
   return measurementRecords
     .filter((r) => r.type === type)
@@ -129,4 +151,3 @@ export function buildBaselineReport(filters: ReportFilters) {
 export function buildEndlineReport(filters: ReportFilters) {
   return buildMeasurementReport("Endline", filters);
 }
-

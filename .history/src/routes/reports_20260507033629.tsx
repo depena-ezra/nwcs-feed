@@ -49,7 +49,6 @@ import { grades, sections, statusColor } from "@/lib/mockData";
 import { useMemo } from "react";
 import { students } from "@/lib/mockData";
 
-
 import {
   buildConsolidatedSchoolFeedingReport,
   buildEndlineReport,
@@ -235,11 +234,7 @@ function ReportsPage() {
               <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Preview
               </div>
-              <PreviewPanel
-                selected={selected}
-                filters={filters}
-                statusColor={statusColor}
-              />
+              <PreviewPanel selected={selected} filters={filters} statusColor={statusColor} />
             </div>
           </CardContent>
         </Card>

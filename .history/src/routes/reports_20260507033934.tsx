@@ -59,7 +59,6 @@ import {
 } from "@/lib/reportsService";
 
 export const Route = createFileRoute("/reports")({
-
   head: () => ({
     meta: [
       { title: "Reports — FEED System" },
